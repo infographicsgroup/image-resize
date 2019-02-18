@@ -54,5 +54,3 @@ functions:
     timeout: 30
     memorySize: 1024
     description: Resize Images
-    events:
-      - s3: ${file(config.json):${self:provider.stage}.sourceBucket}
