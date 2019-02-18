@@ -19,7 +19,7 @@ module.exports = {
   },
   optimization: {
     // Turn off minimization of code
-    minimize: false
+    // minimize: false
   },
   output: {
     libraryTarget: 'commonjs',
