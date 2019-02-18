@@ -11,6 +11,42 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-central-1
+  stage: ${opt:stage, 'dev'}
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:ListBucket"
+         - "s3:GetObject"
+         - "s3:GetObjectAcl"
+       Resource:
+         Fn::Join:
+           - ""
+           -  - "arn:aws:s3:::"
+              - ${file(config.json):${self:provider.stage}.sourceBucket}
+              - "/"
+              - ${file(config.json):${self:provider.stage}.sourcePrefix}
+              - "*"
+    -  Effect: "Allow"
+       Action:
+         - "s3:ListBucket"
+         - "s3:PutObject"
+         - "s3:DeleteObject"
+         - "s3:GetObjectAcl"
+         - "s3:ListBucketMultipartUploads"
+         - "s3:ListMultipartUploadParts"
+         - "s3:PutObject"
+         - "s3:PutObjectAcl"
+         - "s3:PutObjectTagging"
+         - "s3:PutObjectVersionAcl"
+         - "s3:PutObjectVersionTagging"
+       Resource:
+         Fn::Join:
+           - ""
+           -  - "arn:aws:s3:::"
+              - ${file(config.json):${self:provider.stage}.destinationBucket}
+              - "/"
+              - ${file(config.json):${self:provider.stage}.destinationPrefix}
+              - "*"
 
 functions:
   resizeImage:
@@ -18,3 +54,5 @@ functions:
     timeout: 30
     memorySize: 1024
     description: Resize Images
+    events:
+      - s3: ${file(config.json):${self:provider.stage}.sourceBucket}

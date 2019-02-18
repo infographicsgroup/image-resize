@@ -1,0 +1,25 @@
+{
+  "name": "serverless-image-resizer",
+  "provider": {
+    "region": "eu-central-1"
+  },
+  "s3": {
+    "params": {
+      "Metadata": {
+        "generator": "created by a serverless-image-resizer lambda function"
+      }
+    }
+  },
+  "dev": {
+    "sourceBucket": "staging-uploads-visualpedia.igg.cloud",
+    "sourcePrefix": "",
+    "destinationBucket": "staging-images-visualpedia.igg.cloud",
+    "destinationPrefix": ""
+  },
+  "production": {
+    "sourceBucket": "production-uploads-visualpedia.igg.cloud",
+    "sourcePrefix": "",
+    "destinationBucket": "production-images-visualpedia.igg.cloud",
+    "destinationPrefix": ""
+  }
+}
