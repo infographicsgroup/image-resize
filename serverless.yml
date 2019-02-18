@@ -1,3 +1,5 @@
+frameworkVersion: "^1.35.1"
+
 service:
   name: image-resize
 
