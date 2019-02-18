@@ -10,9 +10,8 @@ provider:
   runtime: nodejs8.10
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          method: get
-          path: hello
+  resizeImage:
+    handler: handler.process
+    timeout: 30
+    memorySize: 1024
+    description: Resize Images
