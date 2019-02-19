@@ -3253,6 +3253,11 @@ serverless-offline@^4.4.2:
     trim-newlines "^2.0.0"
     velocityjs "^1.1.2"
 
+serverless-plugin-existing-s3@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/serverless-plugin-existing-s3/-/serverless-plugin-existing-s3-2.3.0.tgz#a90b252619d9b2482ed19e98ddb374626b67d971"
+  integrity sha512-lFj/QHvfiYQgCiW6FwZNL537mS5BgM3GyzyzhlMaKulGPQs0Ja4vO/l9eQgjZXQeShLeGDrHlFKY0thVLyFQeg==
+
 serverless-s3-local@^0.3.22:
   version "0.3.22"
   resolved "https://registry.yarnpkg.com/serverless-s3-local/-/serverless-s3-local-0.3.22.tgz#92221f41d4995cdc17d05d22696537ada2be25af"
