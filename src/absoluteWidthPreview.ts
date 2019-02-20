@@ -1,5 +1,5 @@
 import { S3EventRecord } from "aws-lambda";
-import imageFactory from "./utils/imageFactory";
+import imageFactory from "./imageFactory";
 
 const SIZES = [
   {
