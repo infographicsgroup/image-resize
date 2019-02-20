@@ -1,4 +1,4 @@
-import { S3Handler } from 'aws-lambda';
+import { S3Handler } from "aws-lambda";
 import generateRelativeAspectRatioPreview from "./src/relativeAspectRatioPreview";
 import generateAbsoluteWidthPreview from "./src/absoluteWidthPreview";
 
