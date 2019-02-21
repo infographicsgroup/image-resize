@@ -3,7 +3,6 @@ import generateRelativeAspectRatioPreview from "./src/relativeAspectRatioPreview
 import generateAbsoluteWidthPreview from "./src/absoluteWidthPreview";
 
 export const process: S3Handler = async ({ Records: records }, context, callback) => {
-
   try {
     await Promise.all(records.map(generateRelativeAspectRatioPreview));
     await Promise.all(records.map(generateAbsoluteWidthPreview));
