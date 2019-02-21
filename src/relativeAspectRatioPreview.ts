@@ -1,7 +1,7 @@
 import { S3EventRecord } from 'aws-lambda';
-import imageFactory from "./imageFactory";
+import imageFactory, { SizeType } from "./imageFactory";
 
-function sizes(width: number, height: number) {
+function sizes(width: number, height: number) : SizeType[] {
   const aspectRatio = width / height;
   const relativeSizes = [
     {

@@ -1,7 +1,7 @@
 import { S3EventRecord } from "aws-lambda";
-import imageFactory from "./imageFactory";
+import imageFactory, { SizeType } from "./imageFactory";
 
-const SIZES = [
+const SIZES : SizeType[] = [
   {
     width: 4000,
     height: null,
