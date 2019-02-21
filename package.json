@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
     "@types/node": "^8.0.57",
+    "@types/sharp": "^0.21.2",
     "aws-sdk": "^2.405.0",
     "serverless-offline": "^4.4.2",
     "serverless-plugin-existing-s3": "^2.3.0",

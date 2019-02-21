@@ -137,10 +137,22 @@
   resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.19.tgz#913a8016a4599d262960d97cb11faf7e963ec0e1"
   integrity sha512-dEhQow/1awGGIf/unEpb97vsTtnQ3qRPAhSmZZcXKzs4nOVbIuWo5LCCzOYdSIkGkkoFXVvc8pBaSVKRYIFUBA==
 
+"@types/node@*":
+  version "11.9.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.4.tgz#ceb0048a546db453f6248f2d1d95e937a6f00a14"
+  integrity sha512-Zl8dGvAcEmadgs1tmSPcvwzO1YRsz38bVJQvH1RvRqSR9/5n61Q1ktcDL0ht3FXWR+ZpVmXVwN1LuH4Ax23NsA==
+
 "@types/node@^8.0.57":
   version "8.10.40"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.40.tgz#4314888d5cd537945d73e9ce165c04cc550144a4"
   integrity sha512-RRSjdwz63kS4u7edIwJUn8NqKLLQ6LyqF/X4+4jp38MBT3Vwetewi2N4dgJEshLbDwNgOJXNYoOwzVZUSSLhkQ==
+
+"@types/sharp@^0.21.2":
+  version "0.21.2"
+  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.21.2.tgz#7c00b73ae08419a694daea720127d4015c253802"
+  integrity sha512-HIeqSPUKbC09YAFCVEmDCM7bU/7vmw8YcssiO9lKoZXPMLyAubgYLcmjGYMz2Re6yVXA204LnUcayRfy5hUcGQ==
+  dependencies:
+    "@types/node" "*"
 
 "@webassemblyjs/ast@1.8.3":
   version "1.8.3"
