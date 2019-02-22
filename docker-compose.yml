@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  deploy: &default
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+    working_dir: /code
+    environment:
+      - "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
+      - "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
+    command: >
+             sh -c '
+             serverless deploy -v --stage production
+             '
+  deploy-dev:
+    <<: *default
+    command: >
+             sh -c '
+             serverless deploy -v --stage dev
+             '
