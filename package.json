@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "sharp": "^0.21.3"
+    "sharp": "^0.21.3",
+    "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
