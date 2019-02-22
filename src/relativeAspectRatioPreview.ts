@@ -1,7 +1,7 @@
 import { S3EventRecord } from 'aws-lambda';
 import imageFactory, { SizeType } from "./imageFactory";
 
-function sizes(width: number, height: number) : SizeType[] {
+function sizes(width: number, height: number): SizeType[] {
   const aspectRatio = width / height;
   const relativeSizes = [
     {
@@ -25,15 +25,15 @@ function sizes(width: number, height: number) : SizeType[] {
       key: "3_4"
     },
     {
-      width: width,
+      width: width / 1,
       key: "1"
     }
   ].map(({ width, key }) => {
     return {
-      key,
       // we need to have positive integers for sharp
       width: Math.round(width),
-      height: Math.round(width / aspectRatio)
+      height: Math.round(width / aspectRatio),
+      key,
     };
   });
   return relativeSizes;

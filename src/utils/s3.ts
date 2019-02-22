@@ -52,7 +52,9 @@ export function decodeKey(key) {
   return key && key.length ? decodeURIComponent(key.replace(/\+/g, " ")) : key;
 }
 
-export function encodeKey(key, extension, sizeKey, template = keyTemplate, destinationPrefix = destinationBucketPrefix) {
+export function encodeKey(
+  key, extension, sizeKey, template = keyTemplate, destinationPrefix = destinationBucketPrefix
+) {
   const crumbs = key.split("/");
   const directory = crumbs.slice(0, crumbs.length - 1).join("/");
   const filename = crumbs[crumbs.length - 1].split(".")[0];
