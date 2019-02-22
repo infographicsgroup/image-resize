@@ -17,8 +17,7 @@ const destinationBucket = new AWS.S3({
 const destinationBucketPrefix = config[stage].destinationPrefix;
 
 // !!IMPORTANT!!
-// aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise
-
+// NOTE: aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise
 export function get(params, bucket = sourceBucket): Promise<AWS.S3.Types.GetObjectOutput> {
   return new Promise((resolve, reject) => {
     bucket.getObject(params, (err, data) => {
@@ -31,6 +30,8 @@ export function get(params, bucket = sourceBucket): Promise<AWS.S3.Types.GetObje
   });
 }
 
+// !!IMPORTANT!!
+// NOTE: aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise
 export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3.ManagedUpload.SendData> {
   const s3Params = {
     ...params,
@@ -48,6 +49,7 @@ export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3
   });
 }
 
+// NOTE: decoding the key is needed since AWS converts spaces in the key to + URI encoded string
 export function decodeKey(key) {
   return key && key.length ? decodeURIComponent(key.replace(/\+/g, " ")) : key;
 }

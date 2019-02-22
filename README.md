@@ -59,8 +59,10 @@ serverless install -u https://github.com/infographicsgroup/image-resize
 ### Credentials
 
 You must configure your AWS credentials by defining `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environmental variables.
-Running `aws configure`
 
+```bash
+export AWS_ACCESS_KEY_ID=<your-key-here>
+export AWS_SECRET_ACCESS_KEY=<your-secret-key-here>
 
 ### Buckets
 
