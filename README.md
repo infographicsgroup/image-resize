@@ -92,11 +92,12 @@ for production use `--stage production`
 
 ```bash
 # Staging
-$ serverless deploy
-$ serverless deploy --stage dev
+$ yarn deploy-dev
+$ docker-compose run deploy-dev
 
 # Production
-$ serverless deploy --stage production
+$ yarn deploy
+$ docker-compose run deploy
 ```
 
 ## Rollback
@@ -107,9 +108,11 @@ TBD
 
 ```bash
 # Staging
+$ yarn logs
 $ serverless logs -f resizeImage -t
 $ serverless logs -f resizeImage -t --stage dev
 
 # Production
+$ yarn logs --stage production
 $ serverless logs -f resizeImage -t --stage production
 ```

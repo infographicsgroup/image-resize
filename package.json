@@ -4,7 +4,10 @@
   "description": "Serverless-based Lambda function to resize images based on S3 events with the Sharp library",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-dev": "docker-compose run deploy-dev",
+    "deploy": "docker-compose run deploy",
+    "logs": "serverless logs -f resizeImage -t"
   },
   "dependencies": {
     "aws-sdk": "^2.405.0",
