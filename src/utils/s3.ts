@@ -26,7 +26,7 @@ export function get(params, bucket = sourceBucket): Promise<AWS.S3.Types.GetObje
   });
 }
 
-export function upload(data, params, bucket = destinationBucket) {
+export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3.ManagedUpload> {
   const s3Params = {
     ...params,
     Body: data
