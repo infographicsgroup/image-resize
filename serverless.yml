@@ -56,8 +56,8 @@ provider:
 functions:
   resizeImage:
     handler: handler.process
-    timeout: 30
-    memorySize: 1024
+    timeout: 300
+    memorySize: 2048
     description: Resize Images
     events:
       - existingS3:
