@@ -1,17 +1,17 @@
 const config = require("../../config.json");
 import * as AWS from "aws-sdk";
-import {sprintf } from "sprintf-js";
+import {sprintf} from "sprintf-js";
 
 const stage = process.env.STAGE;
 
 const keyTemplate = config.key;
 
 const sourceBucket = new AWS.S3({
-  params: { Bucket: config[stage].sourceBucket }
+  params: {Bucket: config[stage].sourceBucket},
 });
 
 const destinationBucket = new AWS.S3({
-  params: { Bucket: config[stage].destinationBucket }
+  params: {Bucket: config[stage].destinationBucket},
 });
 
 const destinationBucketPrefix = config[stage].destinationPrefix;
@@ -31,10 +31,10 @@ export function get(params, bucket = sourceBucket): Promise<AWS.S3.Types.GetObje
   });
 }
 
-export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3.ManagedUpload> {
+export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3.ManagedUpload.SendData> {
   const s3Params = {
     ...params,
-    Body: data
+    Body: data,
   };
 
   return new Promise((resolve, reject) => {
@@ -53,11 +53,15 @@ export function decodeKey(key) {
 }
 
 export function encodeKey(
-  key, extension, sizeKey, template = keyTemplate, destinationPrefix = destinationBucketPrefix
+  key,
+  extension,
+  sizeKey,
+  template = keyTemplate,
+  destinationPrefix = destinationBucketPrefix,
 ) {
   const crumbs = key.split("/");
   const directory = crumbs.slice(0, crumbs.length - 1).join("/");
   const filename = crumbs[crumbs.length - 1].split(".")[0];
-  const values = { sizeKey, crumbs, directory, filename, extension };
+  const values = {sizeKey, crumbs, directory, filename, extension};
   return `${destinationPrefix}${sprintf(template, values)}`;
 }
