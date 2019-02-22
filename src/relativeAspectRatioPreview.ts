@@ -39,8 +39,6 @@ function sizes(width: number, height: number) : SizeType[] {
   return relativeSizes;
 }
 
-function generateRelativeAspectRatioPreview(event: S3EventRecord) {
+export default function generateRelativeAspectRatioPreview(event: S3EventRecord) {
   imageFactory(event, sizes);
 }
-
-export default generateRelativeAspectRatioPreview;

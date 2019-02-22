@@ -4,17 +4,17 @@ import {sprintf } from "sprintf-js";
 
 const stage = process.env.STAGE;
 
-export const keyTemplate = config.key;
+const keyTemplate = config.key;
 
-export const sourceBucket = new AWS.S3({
+const sourceBucket = new AWS.S3({
   params: { Bucket: config[stage].sourceBucket }
 });
 
-export const destinationBucket = new AWS.S3({
+const destinationBucket = new AWS.S3({
   params: { Bucket: config[stage].destinationBucket }
 });
 
-export const destinationBucketPrefix = config[stage].destinationPrefix;
+const destinationBucketPrefix = config[stage].destinationPrefix;
 
 // !!IMPORTANT!!
 // aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise

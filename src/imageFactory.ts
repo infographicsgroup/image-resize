@@ -8,7 +8,7 @@ export interface SizeType {
   key: string,
 };
 
-export const MIME_TYPES = {
+const MIME_TYPES = {
   jpeg: "image/jpeg",
   png: "image/png",
   webp: "image/webp",
