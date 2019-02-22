@@ -13,7 +13,9 @@ plugins:
 custom:
   webpack:
     webpackConfig: 'webpack.config.js'
-    includeModules: true
+    includeModules:
+      forceExclude:
+        - aws-sdk
     packager: "yarn"
 
 provider:
