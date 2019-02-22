@@ -1,7 +1,10 @@
 const config = require("../../config.json");
 import * as AWS from "aws-sdk";
+import {sprintf } from "sprintf-js";
 
 const stage = process.env.STAGE;
+
+export const keyTemplate = config.key;
 
 export const sourceBucket = new AWS.S3({
   params: { Bucket: config[stage].sourceBucket }
@@ -10,6 +13,8 @@ export const sourceBucket = new AWS.S3({
 export const destinationBucket = new AWS.S3({
   params: { Bucket: config[stage].destinationBucket }
 });
+
+export const destinationBucketPrefix = config[stage].destinationPrefix;
 
 // !!IMPORTANT!!
 // aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise
@@ -41,4 +46,16 @@ export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3
       resolve(value);
     });
   });
+}
+
+export function decodeKey(key) {
+  return key && key.length ? decodeURIComponent(key.replace(/\+/g, " ")) : key;
+}
+
+export function encodeKey(key, extension, sizeKey, template = keyTemplate, destinationPrefix = destinationBucketPrefix) {
+  const crumbs = key.split("/");
+  const directory = crumbs.slice(0, crumbs.length - 1).join("/");
+  const filename = crumbs[crumbs.length - 1].split(".")[0];
+  const values = { sizeKey, crumbs, directory, filename, extension };
+  return `${destinationPrefix}${sprintf(template, values)}`;
 }

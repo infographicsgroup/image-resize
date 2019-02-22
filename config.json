@@ -1,14 +1,15 @@
 {
+  "key": "%(filename)s-%(sizeKey)s.%(extension)s",
   "dev": {
     "sourceBucket": "staging-uploads-visualpedia.igg.cloud",
     "sourcePrefix": "",
     "destinationBucket": "staging-images-visualpedia.igg.cloud",
-    "destinationPrefix": ""
+    "destinationPrefix": "images/"
   },
   "production": {
     "sourceBucket": "production-uploads-visualpedia.igg.cloud",
     "sourcePrefix": "",
     "destinationBucket": "production-images-visualpedia.igg.cloud",
-    "destinationPrefix": ""
+    "destinationPrefix": "images/"
   }
 }
