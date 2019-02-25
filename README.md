@@ -1,4 +1,4 @@
-#Image-Resize
+# Image-Resize
 
 [Serverless Framework-based](https://www.github.com/serverless/serverless)
 AWS Lambda function triggered by S3 events to resize images with the excellent [Sharp](https://github.com/lovell/sharp) module.
