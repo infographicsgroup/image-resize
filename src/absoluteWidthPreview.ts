@@ -52,6 +52,21 @@ const SIZES: SizeType[] = [
     height: null,
     key: "w400",
   },
+  {
+    width: 200,
+    height: null,
+    key: "w200",
+  },
+  {
+    width: 100,
+    height: null,
+    key: "w100",
+  },
+  {
+    width: 50,
+    height: null,
+    key: "w50",
+  },
 ];
 
 export default function generateAbsoluteWidthPreview(event: S3EventRecord) {
