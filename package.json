@@ -5,8 +5,8 @@
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy-dev": "docker-compose run deploy-dev",
     "deploy": "docker-compose run deploy",
+    "deploy-production": "docker-compose run deploy-production",
     "logs": "serverless logs -f resizeImage -t"
   },
   "dependencies": {

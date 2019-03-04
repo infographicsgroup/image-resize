@@ -13,11 +13,11 @@ services:
       - "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
     command: >
              sh -c '
-             serverless deploy -v --stage production
+             serverless deploy -v --stage dev
              '
-  deploy-dev:
+  deploy-production:
     <<: *default
     command: >
              sh -c '
-             serverless deploy -v --stage dev
+             serverless deploy -v --stage production
              '
