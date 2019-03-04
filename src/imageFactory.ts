@@ -58,7 +58,6 @@ export default async function imageFactory(
     const stream = await resize(sharpImage, size, format);
     return upload(stream, {
       Key: encodeKey(key, format, size.key),
-      ACL: "public-read",
       ContentType: MIME_TYPES[format],
     });
   });

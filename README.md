@@ -95,12 +95,12 @@ for production use `--stage production`
 
 ```bash
 # Staging
-$ yarn deploy-dev
-$ docker-compose run deploy-dev
-
-# Production
 $ yarn deploy
 $ docker-compose run deploy
+
+# Production
+$ yarn deploy-production
+$ docker-compose run deploy-production
 ```
 
 ## Rollback
