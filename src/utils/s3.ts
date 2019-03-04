@@ -34,6 +34,8 @@ export function get(params, bucket = sourceBucket): Promise<AWS.S3.Types.GetObje
 // NOTE: aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise
 export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3.ManagedUpload.SendData> {
   const s3Params = {
+    ACL: "public-read",
+    CacheControl: "max-age=31536000,public",
     ...params,
     Body: data,
   };
