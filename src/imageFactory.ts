@@ -55,19 +55,23 @@ export default async function imageFactory(
   const {width, height, format} = await sharpImage.metadata();
   const sizes = getSizes(width, height);
 
-  console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
+  const formats = Array.from(new Set([format, "webp"]));
 
-  const streams = sizes.map(async size => {
-    const stream = await resize(sharpImage, size, format);
-    return upload(stream, {
-      Key: encodeKey(key, format, size.key),
-      ContentType: MIME_TYPES[format],
+  formats.forEach( format => {
+    console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
+
+    const streams = sizes.map(async size => {
+      const stream = await resize(sharpImage, size, format);
+      return upload(stream, {
+        Key: encodeKey(key, format, size.key),
+        ContentType: MIME_TYPES[format],
+      });
     });
-  });
 
-  Promise.all(streams).then(d => {
-    d.forEach(image => {
-      console.log(`Generated: ${image.Location}`);
+    Promise.all(streams).then(d => {
+      d.forEach(image => {
+        console.log(`Generated: ${image.Location}`);
+      });
     });
   });
 }
