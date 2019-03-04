@@ -33,6 +33,9 @@ function resize(image: sharp.Sharp, size: SizeType, format: string) {
         })
         .toBuffer();
     }
+    case "webp": {
+      return resized.webp({force: true}).toBuffer();
+    }
   }
   return resized.toBuffer();
 }
