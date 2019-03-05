@@ -5,12 +5,18 @@
     "sourceBucket": "staging-uploads-visualpedia.igg.cloud",
     "sourcePrefix": "",
     "destinationBucket": "staging-images-visualpedia.igg.cloud",
-    "destinationPrefix": "images/"
+    "destinationPrefix": "images/",
+    "reservedConcurrency": 10,
+    "memorySize": 2048,
+    "timeout": 300
   },
   "production": {
     "sourceBucket": "production-uploads-visualpedia.igg.cloud",
     "sourcePrefix": "",
     "destinationBucket": "production-images-visualpedia.igg.cloud",
-    "destinationPrefix": "images/"
+    "destinationPrefix": "images/",
+    "reservedConcurrency": 50,
+    "memorySize": 2560,
+    "timeout": 360
   }
 }
