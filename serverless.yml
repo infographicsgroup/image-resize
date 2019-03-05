@@ -1,4 +1,4 @@
-frameworkVersion: "^1.37.1"
+frameworkVersion: "^1.38.0"
 
 service:
   name: visualpedia-s3-images
@@ -64,8 +64,9 @@ provider:
 functions:
   resizeImage:
     handler: handler.process
-    timeout: 300
-    memorySize: 2048
+    timeout: ${file(config.json):${self:provider.stage}.timeout}
+    memorySize: ${file(config.json):${self:provider.stage}.memorySize}
+    reservedConcurrency: ${file(config.json):${self:provider.stage}.reservedConcurrency}
     description: Resize Images
     events:
       - existingS3:
