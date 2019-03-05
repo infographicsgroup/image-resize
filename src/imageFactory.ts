@@ -47,6 +47,7 @@ export default async function imageFactory(
     },
   }: S3EventRecord,
   getSizes: (width?: number, height?: number) => SizeType[],
+  additionalFormats: string[] = [],
 ) {
   const key = decodeKey(encodedKey);
   const {Body: image} = await get({Key: key});
@@ -56,7 +57,7 @@ export default async function imageFactory(
   const sizes = getSizes(width, height);
 
   // Create a unique array of formats to avoid duplicating the webp generation
-  const formats = Array.from(new Set([format, "webp"]));
+  const formats = Array.from(new Set([...additionalFormats, format]));
 
   for(const format of formats){
     console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
