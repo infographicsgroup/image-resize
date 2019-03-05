@@ -1,5 +1,6 @@
 import {S3EventRecord} from "aws-lambda";
 import imageFactory, {SizeType} from "./imageFactory";
+const config = require("../config.json");
 
 const SIZES: SizeType[] = [
   {
@@ -70,5 +71,5 @@ const SIZES: SizeType[] = [
 ];
 
 export default function generateAbsoluteWidthPreview(event: S3EventRecord) {
-  imageFactory(event, () => SIZES);
+  imageFactory(event, () => SIZES, config.additionalFormats);
 }
