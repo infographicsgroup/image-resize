@@ -55,9 +55,10 @@ export default async function imageFactory(
   const {width, height, format} = await sharpImage.metadata();
   const sizes = getSizes(width, height);
 
+  // Create a unique array of formats to avoid duplicating the webp generation
   const formats = Array.from(new Set([format, "webp"]));
 
-  formats.forEach( format => {
+  for(const format of formats){
     console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
 
     const streams = sizes.map(async size => {
@@ -73,5 +74,5 @@ export default async function imageFactory(
         console.log(`Generated: ${image.Location}`);
       });
     });
-  });
+  };
 }
