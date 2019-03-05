@@ -8,7 +8,7 @@
     "destinationPrefix": "images/",
     "reservedConcurrency": 10,
     "memorySize": 2048,
-    "timeout": 300
+    "timeout": 600
   },
   "production": {
     "sourceBucket": "production-uploads-visualpedia.igg.cloud",
@@ -17,6 +17,6 @@
     "destinationPrefix": "images/",
     "reservedConcurrency": 50,
     "memorySize": 2560,
-    "timeout": 360
+    "timeout": 720
   }
 }
