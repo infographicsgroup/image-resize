@@ -1,5 +1,6 @@
 {
   "key": "%(filename)s-%(sizeKey)s.%(extension)s",
+  "additionalFormats": ["webp"],
   "dev": {
     "sourceBucket": "staging-uploads-visualpedia.igg.cloud",
     "sourcePrefix": "",

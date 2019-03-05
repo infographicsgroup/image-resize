@@ -1,5 +1,6 @@
 import {S3EventRecord} from "aws-lambda";
 import imageFactory, {SizeType} from "./imageFactory";
+const config = require("../config.json");
 
 function sizes(width: number, height: number): SizeType[] {
   const aspectRatio = width / height;
@@ -40,5 +41,5 @@ function sizes(width: number, height: number): SizeType[] {
 }
 
 export default function generateRelativeAspectRatioPreview(event: S3EventRecord) {
-  imageFactory(event, sizes);
+  return imageFactory(event, sizes, config.additionalFormats);
 }

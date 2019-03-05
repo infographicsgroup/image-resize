@@ -1,4 +1,5 @@
 import * as sharp from "sharp";
+import * as AWS from "aws-sdk";
 import {S3EventRecord} from "aws-lambda";
 import {get, upload, decodeKey, encodeKey} from "./utils/s3";
 
@@ -33,6 +34,9 @@ function resize(image: sharp.Sharp, size: SizeType, format: string) {
         })
         .toBuffer();
     }
+    case "webp": {
+      return resized.webp({force: true}).toBuffer();
+    }
   }
   return resized.toBuffer();
 }
@@ -44,7 +48,8 @@ export default async function imageFactory(
     },
   }: S3EventRecord,
   getSizes: (width?: number, height?: number) => SizeType[],
-) {
+  additionalFormats: string[] = [],
+): Promise<AWS.S3.ManagedUpload.SendData[][]> {
   const key = decodeKey(encodedKey);
   const {Body: image} = await get({Key: key});
 
@@ -52,19 +57,25 @@ export default async function imageFactory(
   const {width, height, format} = await sharpImage.metadata();
   const sizes = getSizes(width, height);
 
-  console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
+  // Create a unique array of formats to avoid duplicating the webp generation
+  const formats = Array.from(new Set([...additionalFormats, format]));
 
-  const streams = sizes.map(async size => {
-    const stream = await resize(sharpImage, size, format);
-    return upload(stream, {
-      Key: encodeKey(key, format, size.key),
-      ContentType: MIME_TYPES[format],
-    });
-  });
+  return Promise.all(formats.map(format => {
+    console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
 
-  Promise.all(streams).then(d => {
-    d.forEach(image => {
-      console.log(`Generated: ${image.Location}`);
+    const streams = sizes.map(async size => {
+      const stream = await resize(sharpImage, size, format);
+      return upload(stream, {
+        Key: encodeKey(key, format, size.key),
+        ContentType: MIME_TYPES[format],
+      });
     });
-  });
+
+    return Promise.all(streams).then(d => {
+      return d.map(image => {
+        console.log(`Generated: ${image.Location}`);
+        return image;
+      });
+    });
+  }));
 }
