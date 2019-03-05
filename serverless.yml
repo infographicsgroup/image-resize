@@ -1,4 +1,4 @@
-frameworkVersion: "^1.37.1"
+frameworkVersion: "^1.38.0"
 
 service:
   name: visualpedia-s3-images
