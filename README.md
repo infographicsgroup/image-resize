@@ -25,6 +25,10 @@ This is based on the following projects:
 A tool to take images uploaded to an S3 bucket and produce one or more images of varying sizes, optimizations and other operations.
 It does this by creating an AWS Lambda function with the help of the [Serverless Framework](https://www.github.com/serverless/serverless).
 
+It listens to the files created in the `sourceBucket` in the [./config.json](./config.json)
+and output the original format + `additionalFormats` (defined in the configuration) and upload
+the generated images to the `destinationBucket`.
+
 ## Installation
 
 ### Prerequisites
