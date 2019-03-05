@@ -1,4 +1,5 @@
 import * as sharp from "sharp";
+import * as AWS from "aws-sdk";
 import {S3EventRecord} from "aws-lambda";
 import {get, upload, decodeKey, encodeKey} from "./utils/s3";
 
@@ -48,7 +49,7 @@ export default async function imageFactory(
   }: S3EventRecord,
   getSizes: (width?: number, height?: number) => SizeType[],
   additionalFormats: string[] = [],
-) {
+): Promise<AWS.S3.ManagedUpload.SendData[][]> {
   const key = decodeKey(encodedKey);
   const {Body: image} = await get({Key: key});
 
@@ -59,7 +60,7 @@ export default async function imageFactory(
   // Create a unique array of formats to avoid duplicating the webp generation
   const formats = Array.from(new Set([...additionalFormats, format]));
 
-  for(const format of formats){
+  return Promise.all(formats.map(format => {
     console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
 
     const streams = sizes.map(async size => {
@@ -70,10 +71,11 @@ export default async function imageFactory(
       });
     });
 
-    Promise.all(streams).then(d => {
-      d.forEach(image => {
+    return Promise.all(streams).then(d => {
+      return d.map(image => {
         console.log(`Generated: ${image.Location}`);
+        return image;
       });
     });
-  };
+  }));
 }

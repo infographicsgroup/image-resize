@@ -71,5 +71,5 @@ const SIZES: SizeType[] = [
 ];
 
 export default function generateAbsoluteWidthPreview(event: S3EventRecord) {
-  imageFactory(event, () => SIZES, config.additionalFormats);
+  return imageFactory(event, () => SIZES, config.additionalFormats);
 }
