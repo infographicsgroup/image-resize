@@ -17,8 +17,7 @@ const MIME_TYPES = {
   svg: "image/svg+xml",
 };
 
-function resize(image: sharp.Sharp, size: SizeType, format: string) {
-  console.log(`Resizing to size: ${JSON.stringify(size)}`);
+async function resize(image: sharp.Sharp, size: SizeType, format: string) {
   const resized = image.clone().resize(size.width, size.height);
   switch (format) {
     case "jpg": {
@@ -61,7 +60,7 @@ export default async function imageFactory(
   const formats = Array.from(new Set([...additionalFormats, format]));
 
   return Promise.all(formats.map(format => {
-    console.log(`Image: { width: ${width}, height: ${height}, format: ${format} }`);
+    console.log(`Image ${key}: { width: ${width}, height: ${height}, format: ${format} }`);
 
     const streams = sizes.map(async size => {
       const stream = await resize(sharpImage, size, format);
