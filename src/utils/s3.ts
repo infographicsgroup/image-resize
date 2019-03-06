@@ -2,6 +2,12 @@ const config = require("../../config.json");
 import * as AWS from "aws-sdk";
 import {sprintf} from "sprintf-js";
 
+export interface NullableSendData {
+  success: boolean;
+  data?: AWS.S3.ManagedUpload.SendData;
+  error?: { key: string, error, Error, message: string} ;
+}
+
 const stage = process.env.STAGE;
 
 const keyTemplate = config.key;
@@ -32,7 +38,7 @@ export function get(params, bucket = sourceBucket): Promise<AWS.S3.Types.GetObje
 
 // !!IMPORTANT!!
 // NOTE: aws-sdk has some problems with .promise(), so we need to wrap their functions inside a promise
-export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3.ManagedUpload.SendData> {
+export function upload(data, params, bucket = destinationBucket): Promise<NullableSendData> {
   const s3Params = {
     ACL: "public-read",
     CacheControl: "max-age=31536000,public",
@@ -46,7 +52,7 @@ export function upload(data, params, bucket = destinationBucket): Promise<AWS.S3
         console.error("An error occurred in upload ", err, err.stack); // an error occurred
         reject(err);
       }
-      resolve(value);
+      resolve({success: true, data: value});
     });
   });
 }

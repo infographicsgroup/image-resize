@@ -1,17 +1,11 @@
 import * as sharp from "sharp";
-import * as AWS from "aws-sdk";
 import {S3EventRecord} from "aws-lambda";
-import {get, upload, decodeKey, encodeKey} from "./utils/s3";
+import {get, upload, decodeKey, encodeKey, NullableSendData} from "./utils/s3";
 
 export interface SizeType {
   width: number;
-  height: number | null;
+  height?: number;
   key: string;
-}
-
-interface NullableSendData extends AWS.S3.ManagedUpload.SendData {
-  error?: Error;
-  message?: string;
 }
 
 const MIME_TYPES = {
@@ -53,7 +47,7 @@ export default async function imageFactory(
   }: S3EventRecord,
   getSizes: (width?: number, height?: number) => SizeType[],
   additionalFormats: string[] = [],
-): Promise<AWS.S3.ManagedUpload.SendData[][]> {
+): Promise<NullableSendData[][]> {
   const key = decodeKey(encodedKey);
   const {Body: image} = await get({Key: key});
 
@@ -73,20 +67,20 @@ export default async function imageFactory(
         return upload(stream, {
           Key: encodeKey(key, format, size.key),
           ContentType: MIME_TYPES[format],
-        }) as Promise<NullableSendData>;
+        });
       } catch (error) {
         const message = `Failed to resize ${key}: { width: ${size.width}, height: ${size.height}, format: ${format} }`;
-        return { Key: key, error: error, message: message } as NullableSendData;
+        return { success: false, error: { key: key, error: error, message: message } } as NullableSendData;
       }
     });
 
     return Promise.all(streams).then(d => {
       return d.map(image => {
-        if(image.error) {
-          console.error(`${image.message}`);
+        if(image.success) {
+          console.log(`Generated: ${image.data.Location}`);
           return image;
         } else {
-          console.log(`Generated: ${image.Location}`);
+          console.error(`${image.error.message}`);
           return image;
         }
       });
