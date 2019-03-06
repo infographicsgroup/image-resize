@@ -63,16 +63,21 @@ export default async function imageFactory(
     console.log(`Image ${key}: { width: ${width}, height: ${height}, format: ${format} }`);
 
     const streams = sizes.map(async size => {
-      const stream = await resize(sharpImage, size, format);
-      return upload(stream, {
-        Key: encodeKey(key, format, size.key),
-        ContentType: MIME_TYPES[format],
-      });
+      try {
+        const stream = await resize(sharpImage, size, format);
+        return upload(stream, {
+          Key: encodeKey(key, format, size.key),
+          ContentType: MIME_TYPES[format],
+        });
+      } catch (error) {
+        const errorMsg = `Faild resizing ${key}: { width: ${size.width}, height: ${size.height}, format: ${format}, ${error} }`;
+        return { ETag: "", Bucket: "", Location: errorMsg, Key: "" };
+      }
     });
 
     return Promise.all(streams).then(d => {
       return d.map(image => {
-        console.log(`Generated: ${image.Location}`);
+        console.log(image.Location);
         return image;
       });
     });
