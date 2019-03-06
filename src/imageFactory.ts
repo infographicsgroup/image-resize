@@ -9,6 +9,11 @@ export interface SizeType {
   key: string;
 }
 
+interface NullableSendData extends AWS.S3.ManagedUpload.SendData {
+  error?: Error;
+  message?: string;
+}
+
 const MIME_TYPES = {
   jpeg: "image/jpeg",
   png: "image/png",
@@ -68,17 +73,22 @@ export default async function imageFactory(
         return upload(stream, {
           Key: encodeKey(key, format, size.key),
           ContentType: MIME_TYPES[format],
-        });
+        }) as Promise<NullableSendData>;
       } catch (error) {
-        const errorMsg = `Faild resizing ${key}: { width: ${size.width}, height: ${size.height}, format: ${format}, ${error} }`;
-        return { ETag: "", Bucket: "", Location: errorMsg, Key: "" };
+        const message = `Failed to resize ${key}: { width: ${size.width}, height: ${size.height}, format: ${format} }`;
+        return { Key: key, error: error, message: message } as NullableSendData;
       }
     });
 
     return Promise.all(streams).then(d => {
       return d.map(image => {
-        console.log(image.Location);
-        return image;
+        if(image.error) {
+          console.error(`${image.message}`);
+          return image;
+        } else {
+          console.log(`Generated: ${image.Location}`);
+          return image;
+        }
       });
     });
   }));
