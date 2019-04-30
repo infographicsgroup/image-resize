@@ -6,9 +6,6 @@ By using the Sharp module (which uses the `libvips` library), image processing c
 thus reducing the time your function spends running, which can potentially dramatically decrease your lambda function's cost.
 The function's behaviour can be controlled entirely with configuration.
 
-This is based on the following projects:
-- https://github.com/infographicsgroup/serverless-image-resizer
-
 ## Contents
 
 1. [What is it?](#what-is-it)
