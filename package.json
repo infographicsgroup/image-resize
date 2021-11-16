@@ -14,7 +14,7 @@
     "logs": "serverless logs -f resizeImage -t"
   },
   "dependencies": {
-    "aws-sdk": "^2.405.0",
+    "aws-sdk": "^2.814.0",
     "sharp": "^0.21.3",
     "source-map-support": "^0.5.6",
     "sprintf-js": "^1.1.2"
